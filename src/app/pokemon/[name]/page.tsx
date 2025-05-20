@@ -8,10 +8,10 @@ import { PokemonDetailed } from '@/types/pokemon';
 export async function generateMetadata({ 
   params 
 }: { 
-  params: Promise<{ name: string }> | { name: string } 
+  params: Promise<{ name: string }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const pokemonName = decodeURIComponent(resolvedParams.name);
+  const { name } = await params;
+  const pokemonName = decodeURIComponent(name);
   
   return {
     title: `${pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)} | Pokémon Search App`,
@@ -19,13 +19,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function PokemonPage({ 
-  params 
-}: { 
-  params: Promise<{ name: string }> | { name: string } 
+export default async function PokemonPage({
+  params,
+}: {
+  params: Promise<{ name: string }>;
 }) {
-  const resolvedParams = await params;
-  const pokemonName = decodeURIComponent(resolvedParams.name);
+  const { name } = await params;
+  const pokemonName = decodeURIComponent(name);
   
   const { data } = await getClient().query({
     query: GET_POKEMON,
